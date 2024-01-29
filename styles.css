@@ -1,0 +1,120 @@
+html{
+    background-color: antiquewhite;
+}
+#grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: fit-content;
+    width: 100%;
+    min-width: 500px;
+    margin: 20px;
+    min-height: 600px;
+    border: 2px solid #000;
+    justify-content: center;
+}
+
+.headerText{
+    font-family: 'Workbench', sans-serif;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 3rem;
+    padding-bottom: 2vh;
+    border-bottom: solid 2px ;
+}
+button{
+    font-family: 'Workbench', sans-serif;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding-block: 30px;
+    margin-left: 20px;
+    gap: 30px;
+    min-width: 150px;
+    width: 150px;
+    font-family: 'Workbench', sans-serif;
+}
+.content{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-right: 175px;
+    
+}
+.grid-item {
+    flex: auto; /* Allow items to grow or shrink */
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+button {
+    --color: #000000;
+    padding: 0.7em 1.7em;
+    background-color: transparent;
+    border-radius: .3em;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: .5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: var(--color);
+    z-index: 1;
+}
+
+button::before, .button::after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
+}
+
+button::before {
+    top: -1em;
+    left: -1em;
+}
+
+button::after {
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
+}
+
+button:hover::before, .button:hover::after {
+    height: 410px;
+    width: 410px;
+}
+
+button:hover {
+    color: rgb(255, 255, 255);
+}
+
+button:active {
+    filter: brightness(.8);
+}
+@media (max-width: 1080px) {
+    .content{
+        flex-direction: column;
+        align-items: center;
+        margin: auto;
+    }
+    #grid-container{
+        justify-content: center;
+    }
+    .buttons{
+        flex-direction: row;
+        width: auto;
+        padding-top: 0;
+    }
+}
