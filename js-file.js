@@ -1,5 +1,4 @@
 // Define your functions outside the event listener
-let userDefinedCols = 0;
 let userDefinedRows = 0;
 let modeChoice = false;
 
@@ -9,36 +8,66 @@ function createGrid(rows, cols) {
     // Clear existing content in gridContainer
     gridContainer.innerHTML = '';
 
+    let isDrawing = false;
+
+    function handleMove(event) {
+        if (isDrawing) {
+            if (modeChoice) {
+                let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                event.target.style.backgroundColor = color;
+            } else {
+                event.target.style.backgroundColor = 'black';
+            }
+        }
+    }
+
+    function handleStart(event) {
+        isDrawing = true;
+        handleMove(event);
+    }
+
+    function handleEnd() {
+        isDrawing = false;
+    }
+
     for (let i = 0; i < rows; i++) {
         const gridRow = document.createElement('div');
-        gridRow.classList.add('grid-container');
+        gridRow.classList.add('row');
         gridContainer.appendChild(gridRow);
 
         for (let j = 0; j < cols; j++) {
             const gridItem = document.createElement('div');
-            gridItem.style.width = `${(700 / cols) - 2}px`;
-            gridItem.style.height = `${(700 / rows) - 2}px`;
+            gridItem.style.width = `${(100 / cols) - 2}%`;
+            gridItem.style.height = `${(100 / rows) - 2}%`;
             gridItem.classList.add('grid-item');
             gridRow.appendChild(gridItem);
 
-            // Add event listener to each grid item
-            gridItem.addEventListener('mouseover', (event) => {
-                if (modeChoice) {
-                    let color = '#' + Math.floor(Math.random() * 16777215).toString(16);
-                    event.target.style.backgroundColor = color;
-                } else {
-                    event.target.style.backgroundColor = 'black';
-                }
+            // Add event listeners for mouse events
+            gridItem.addEventListener('mouseover', handleMove);
+            gridItem.addEventListener('mousedown', handleStart);
+            gridItem.addEventListener('mouseup', handleEnd);
+
+            // Add event listeners for touch events
+            gridItem.addEventListener('touchstart', (touchEvent) => {
+                handleStart(touchEvent.touches[0]);
             });
+            gridItem.addEventListener('touchmove', (touchEvent) => {
+                handleMove(touchEvent.touches[0]);
+            });
+            gridItem.addEventListener('touchend', handleEnd);
         }
     }
 }
 
+
+function initializeGrid(number){
+    createGrid(number, number);
+}
 function resetGridSize() {
-    if (userDefinedCols !== 0 && userDefinedRows !== 0) {
-        createGrid(userDefinedRows, userDefinedRows);
+    if (userDefinedRows !== 0) {
+        initializeGrid(userDefinedRows);
     } else {
-        createGrid(12, 12);
+        initializeGrid(10);
     }
 }
 
@@ -51,20 +80,17 @@ function setBwMode() {
 }
 
 function handleGridSize() {
-    const userInputRows = prompt('Enter the number of rows:');
-    const userInputCols = prompt('Enter the number of columns:');
+    const userInputRows = prompt('Enter Grid Size:');
 
     userDefinedRows = parseInt(userInputRows);
-    userDefinedCols = parseInt(userInputCols);
 
-    if (!isNaN(userDefinedRows) && !isNaN(userDefinedCols) && userDefinedRows > 0 && userDefinedCols > 0) {
-        createGrid(userDefinedRows, userDefinedCols);
+    if (!isNaN(userDefinedRows) && userDefinedRows > 0 && userDefinedRows < 50) {
+        initializeGrid(userDefinedRows);
     } else {
-        alert('Invalid input. Please enter positive integers for rows and columns.');
+        alert('Invalid input. Please enter positive integers for grid size.');
     }
 }
 
-// Attach event listeners outside of the functions
 document.addEventListener('DOMContentLoaded', function () {
     const resetGridBtn = document.querySelector('.resetGridBtn');
     const gridSizeBtn = document.querySelector('.gridSizeBtn');
@@ -78,5 +104,5 @@ document.addEventListener('DOMContentLoaded', function () {
     colorBtn.addEventListener('click', setColorMode); // Add parentheses to call the function
 
     // Now, call the initial setup or any other functions if needed
-    createGrid(12, 12);
+    initializeGrid(16)
 });

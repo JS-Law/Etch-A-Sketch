@@ -1,54 +1,85 @@
-html{
-    background-color: antiquewhite;
-}
-#grid-container {
-    display: flex;
-    flex-wrap: wrap;
-    max-width: fit-content;
-    width: 100%;
-    min-width: 500px;
-    margin: 20px;
-    min-height: 600px;
-    border: 2px solid #000;
-    justify-content: center;
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-.headerText{
+/* Explicitly set the height of html, body, and #grid-container */
+html, body {
+    /* width: 90%; */
+    height: 100vh;
+    background-color: antiquewhite;
+}
+.headerText {
     font-family: 'Workbench', sans-serif;
+    padding-top: 3%;
     letter-spacing: 1px;
     text-align: center;
     font-size: 3rem;
     padding-bottom: 2vh;
     border-bottom: solid 2px ;
 }
-button{
+#grid-container {
+    margin-top: 10%;
+    border: #000000 solid 2px;
+    display: flex;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    margin: auto;
+    /* width: 50%; */
+    /* margin-top: 10vh; */
+    /* min-height: 15vh !important;  */
+    /* min-width: 15vh !important; */
+    max-width: 70vh !important;
+    max-height: 70vh !important;
+
+}
+
+.grid-item {
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    border: solid rgba(88, 86, 86, 0.354) 1px;
+    width: 100% !important;
+    height: 100% !important;
+}
+.row {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 69vh;
+    
+}
+.space{
+    padding-inline: 20px;
+}
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    margin-top: 30px;
     font-family: 'Workbench', sans-serif;
+    letter-spacing: 2px;
+    width: 100%;
+    background-color: rgba(240, 248, 255, 0.163);
+    padding-block: 25px;
+    color: black;
+    border-top: #000000 solid 1px;
 }
 
 .buttons {
     display: flex;
-    flex-direction: column;
-    align-items: start;
+    flex-direction: row;
+    justify-content: center;
     padding-block: 30px;
     margin-left: 40px;
     margin-right: 40px;
     gap: 30px;
     min-width: 150px;
-    width: 150px;
+    width: auto;
     font-family: 'Workbench', sans-serif;
-}
-.content{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    margin-right: 210px;
-    
-}
-.grid-item {
-    flex: auto; /* Allow items to grow or shrink */
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    text-align: center;
 }
 
 button {
@@ -104,22 +135,37 @@ button:hover {
 button:active {
     filter: brightness(.8);
 }
-@media (max-width: 1080px) {
-    .content{
-        flex-direction: column;
-        align-items: center;
-        margin: auto;
+@media (max-width: 800px) {
+    body #grid-container {
+        /* max-width: 10px; */
+        max-width: 50vh !important;
+        max-height: 50vh !important;
     }
-    #grid-container{
-        justify-content: center;
+    .row {
+        height: 49vh !important;
     }
-    .buttons{
-        flex-direction: row;
-        width: auto;
-        padding-top: 0px;
-        padding-bottom: 5px;
+    body button {
+        font-size: 13px;
     }
-    .headerText{
-        margin-bottom: 30px;
+}
+
+@media (max-width: 440px) {
+    body #grid-container {
+        /* max-width: 10px; */
+        max-width: 30vh !important;
+        max-height: 30vh !important;
+    }
+    .row {
+        height: 29vh !important;
+    }
+    body button {
+        font-size: 10px;
+        padding: 0.5em 1em;
+    }
+}
+@media (max-width: 390px) {
+    body .grid-item {
+        min-width: 4px !important;
+        min-height: 4px !important;
     }
 }
