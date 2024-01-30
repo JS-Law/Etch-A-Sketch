@@ -25,13 +25,8 @@ html, body {
     border: #000000 solid 2px;
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
     justify-content: center;
     margin: auto;
-    /* width: 50%; */
-    /* margin-top: 10vh; */
-    /* min-height: 15vh !important;  */
-    /* min-width: 15vh !important; */
     max-width: 70vh !important;
     max-height: 70vh !important;
 
@@ -86,7 +81,7 @@ button {
     --color: #000000;
     padding: 0.7em 1.7em;
     background-color: transparent;
-    border-radius: .3em;
+    /* border-radius: .3em; */
     position: relative;
     overflow: hidden;
     cursor: pointer;
@@ -99,7 +94,14 @@ button {
     color: var(--color);
     z-index: 1;
 }
-
+.eraserBtn {
+    font-family: 'Workbench', sans-serif;
+}
+.eraser {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
 button::before, .button::after {
     content: '';
     display: block;
@@ -162,10 +164,33 @@ button:active {
         font-size: 10px;
         padding: 0.5em 1em;
     }
+    footer {
+        margin-top: 250px;
+        padding-block: 15px;
+    }
+    .footerText {
+        font-size: 13px;
+    }
+    .space {
+        padding-inline: 10px;
+    }
 }
 @media (max-width: 390px) {
     body .grid-item {
         min-width: 4px !important;
         min-height: 4px !important;
+    }
+    button{
+        font-size: 5px;
+    }
+    footer {
+        margin-top: 250px;
+        padding-block: 15px;
+    }
+    .footerText {
+        font-size: 10px;
+    }
+    .space {
+        padding-inline: 10px;
     }
 }
