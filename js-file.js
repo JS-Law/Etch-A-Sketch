@@ -3,6 +3,7 @@ let userDefinedRows = 0;
 let modeChoice = false;
 let eraserToggle = false;
 let eraser = "antiquewhite"
+let previousGridItem = null;
 
 // GRID CREATION
 function createGrid(rows, cols) {
@@ -53,14 +54,32 @@ function createGrid(rows, cols) {
             gridItem.addEventListener('mouseup', handleEnd);
             // Add event listeners for touch events
             gridItem.addEventListener('touchstart', (touchEvent) => {
-                touchEvent.preventDefault(); 
+                touchEvent.preventDefault();
                 handleStart(touchEvent.touches[0]);
+            
+                // Store the current grid item as the previous grid item
+                previousGridItem = gridItem;
             });
+
             gridItem.addEventListener('touchmove', (touchEvent) => {
-                touchEvent.preventDefault(); 
-                handleMove(touchEvent.touches[0]);
+                touchEvent.preventDefault();
+            
+                // Check if a previous grid item exists
+                if (previousGridItem) {
+                    const currentGridItem = document.elementFromPoint(touchEvent.touches[0].clientX, touchEvent.touches[0].clientY);
+            
+                    // Check if the current grid item is different from the previous one
+                    if (currentGridItem !== previousGridItem) {
+                        handleStart(touchEvent.touches[0]);
+                        previousGridItem = currentGridItem;
+                    }
+                }
             });
-            gridItem.addEventListener('touchend', handleEnd);
+            gridItem.addEventListener('touchend', (touchEvent) => {
+                touchEvent.preventDefault();
+                handleEnd();
+                previousGridItem = null; // Reset the previous grid item
+            });
         }
     }
 }
