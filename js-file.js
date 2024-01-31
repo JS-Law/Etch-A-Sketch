@@ -3,10 +3,12 @@ let userDefinedRows = 0;
 let modeChoice = false;
 let eraserToggle = false;
 let eraser = "antiquewhite"
+
+// GRID CREATION
 function createGrid(rows, cols) {
     const gridContainer = document.getElementById('grid-container');
 
-    // Clear existing content in gridContainer
+    // Clears existing styling
     gridContainer.innerHTML = '';
 
     let isDrawing = false;
@@ -51,9 +53,11 @@ function createGrid(rows, cols) {
             gridItem.addEventListener('mouseup', handleEnd);
             // Add event listeners for touch events
             gridItem.addEventListener('touchstart', (touchEvent) => {
+                touchEvent.preventDefault(); 
                 handleStart(touchEvent.touches[0]);
             });
             gridItem.addEventListener('touchmove', (touchEvent) => {
+                touchEvent.preventDefault(); 
                 handleMove(touchEvent.touches[0]);
             });
             gridItem.addEventListener('touchend', handleEnd);
@@ -61,6 +65,7 @@ function createGrid(rows, cols) {
     }
 }
 
+// DRAWING FUNCTIONS
 function eraserMode() {
     eraserToggle = !eraserToggle; // Toggle the eraser mode
     if (eraserToggle) {
@@ -68,7 +73,17 @@ function eraserMode() {
     }
     return eraser;
 }
+function setColorMode() {
+    modeChoice = true;
+}
 
+function setBwMode() {
+    modeChoice = false;
+    eraserToggle = false;
+}
+// END OF DRAWING FUNCTIONS
+
+// GRID FUNCTIONS
 function initializeGrid(number){
     createGrid(number, number);
 }
@@ -79,15 +94,6 @@ function resetGridSize() {
         initializeGrid(10);
     }
 }
-
-function setColorMode() {
-    modeChoice = true;
-}
-
-function setBwMode() {
-    modeChoice = false;
-}
-
 function handleGridSize() {
     const userInputRows = prompt('Enter Grid Size:');
 
@@ -99,7 +105,10 @@ function handleGridSize() {
         alert('Invalid input. Please enter positive integers for grid size.');
     }
 }
+// END OF GRID FUNCTIONS
 
+// LOAD LISTENERS ON DOM CONTENT LOAD
+// INITIALIZE GRID
 document.addEventListener('DOMContentLoaded', function () {
     const resetGridBtn = document.querySelector('.resetGridBtn');
     const gridSizeBtn = document.querySelector('.gridSizeBtn');
@@ -112,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function () {
     bwBtn.addEventListener('click', setBwMode); // Add parentheses to call the function
     colorBtn.addEventListener('click', setColorMode); // Add parentheses to call the function
     eraserBtn.addEventListener('click', eraserMode);
-    
+
     // Now, call the initial setup or any other functions if needed
     initializeGrid(16)
 });
